@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developing Data Product Project Assignment</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Developing Data Product Project Assignment">
+  <meta name="author" content="Steven Lee">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Developing Data Product Project Assignment</h1>
+    <h2>These slides help to explain the project.</h2>
+    <p>Steven Lee<br/>Playing around with R coding.</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About the Apps</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>There are a total of 2 apps and 1 dataset tab </li>
+<li>The first app is about suggesting a lunch place for user based on their 2 selections. </li>
+<li>The second app is about the game &quot;rock, sisscors, paper&quot; to play with the computer. </li>
+<li>The last tab is to let user select the option on viewing the 4 datasets used for the lunch app.
+
+<ul>
+<li>All the 2 apps uses random number generation and ifelse logic in R.</li>
+</ul></li>
+</ul>
+
+<p>A Screenshot of how the app look like.</p>
+
+<p><img src="images/Capture.PNG" alt=""> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Lunch App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>This app based on the 2 selection:</p>
+
+<ul>
+<li>radio button : take away / dine in (2 options).</li>
+<li>dropdown on budget selection : $5 to $10 / More than $10 (2 options).</li>
+<li>Hence, a total of 4 permutations which will direct it to 4 lunch datasets.</li>
+</ul></li>
+<li><p>The lunch suggestion will be random number generation between 0 to 14.</p></li>
+</ul>
+
+<pre><code class="r">floor(runif(1,0,15))       
+</code></pre>
+
+<pre><code>## [1] 11
+</code></pre>
+
+<ul>
+<li>With the random number generated, it will row selection from the dataset, serial number. </li>
+</ul>
+
+<pre><code class="r">  final_lunch2=reactive({if(final_xy1()==&quot;d11&quot;){data11[data11$s.n==z1(),2:3]
+  }else if (final_xy1()==&quot;d12&quot;){data12[data12$s.n==z1(),2:3]
+  }else if (final_xy1()==&quot;d21&quot;){data21[data21$s.n==z1(),2:3]
+  }else {data22[data22$s.n==z1(),2:3]}})    
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Rock, Paper, Sisscors App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>This App is a simple game play with user entering his/her name. </p>
+
+<ul>
+<li>Then user select rock, paper or sisscor and submit his/her choice to play with the computer.</li>
+<li>The Main panel will show user and computer choice in the game and the final outcome. </li>
+</ul></li>
+<li><p>The computer choice will be based on random number generation from 0 to 2.</p></li>
+</ul>
+
+<pre><code class="r">  floor(runif(1,0,3))  
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<ul>
+<li>The computer choice will be based on random number generation from 0 to 2.</li>
+</ul>
+
+<pre><code class="r">  y_src=reactive({ifelse(final_y()==&quot;rock&quot;,&quot;images/rock.png&quot;,
+  ifelse(final_y()==&quot;paper&quot;,&quot;images/paper.png&quot;,&quot;images/scissors.png&quot;))})  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Thrid Tab on Lunch Dataset</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>This tab allow user to see all the 4 dataset on the first app on lunch suggestion.</p>
+
+<ul>
+<li>user can choose from the radio button to see each of the lunch datatset.</li>
+</ul></li>
+<li><p>Overall the project can be improved by better arranging the 4 datasets to suit the 4 user selection.</p>
+
+<ul>
+<li>i.e: the first dataset only include resturant that is really between take-away and $5 to $10 dollar.</li>
+</ul></li>
+<li><p>This can also be further modify to suit each location or country to help user on lunch suggestion.</p></li>
+</ul>
+
+<p><img src="images/Capture1.PNG" alt=""> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About the Apps'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Lunch App'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Rock, Paper, Sisscors App'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Thrid Tab on Lunch Dataset'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
